@@ -2,7 +2,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 加载db.properties配置文件 -->
+    <!-- 不配置，使用Spring新注解了，是SpringConfiguration.java -->
+<!--    <context:property-placeholder location="classpath:db.properties" />-->
+
 <!-- 无参构造方法实例化 -->
 <!--    <bean id="userDao" class="com.example.dao.impl.UserDaoImpl" scope="singleton">-->
 <!--        &lt;!&ndash; 依赖注入：通过set方法 注入基本类型String、int&ndash;&gt;-->
@@ -10,31 +17,32 @@
 <!--        <property name="age" value="10" />-->
 <!--    </bean>-->
 
-    <bean id="userDao" class="com.example.dao.impl.UserDaoImpl" scope="singleton">
-        <!-- 依赖注入：通过set方法 注入基本类型List、Map、Properties -->
-        <property name="strList">
-            <list>
-                <value>as</value>
-                <value>asfdsf</value>
-                <value>asdsad</value>
-            </list>
-        </property>
+    <!-- 不配置，使用@Component注解去生成实例 -->
+<!--    <bean id="userDao" class="com.example.dao.impl.UserDaoImpl" scope="singleton">-->
+<!--        &lt;!&ndash; 依赖注入：通过set方法 注入基本类型List、Map、Properties &ndash;&gt;-->
+<!--        <property name="strList">-->
+<!--            <list>-->
+<!--                <value>as</value>-->
+<!--                <value>asfdsf</value>-->
+<!--                <value>asdsad</value>-->
+<!--            </list>-->
+<!--        </property>-->
 
-        <property name="userMap">
-            <map>
-                <entry key="user1" value-ref="userPojo"></entry>
-                <entry key="user2" value-ref="userPojo1"></entry>
-            </map>
-        </property>
+<!--        <property name="userMap">-->
+<!--            <map>-->
+<!--                <entry key="user1" value-ref="userPojo"></entry>-->
+<!--                <entry key="user2" value-ref="userPojo1"></entry>-->
+<!--            </map>-->
+<!--        </property>-->
 
-        <property name="properties">
-            <props>
-                <prop key="p1">3132132</prop>
-                <prop key="p2">发空间的</prop>
-                <prop key="p2">大苏打</prop>
-            </props>
-        </property>
-    </bean>
+<!--        <property name="properties">-->
+<!--            <props>-->
+<!--                <prop key="p1">3132132</prop>-->
+<!--                <prop key="p2">发空间的</prop>-->
+<!--                <prop key="p2">大苏打</prop>-->
+<!--            </props>-->
+<!--        </property>-->
+<!--    </bean>-->
 
     <!-- 将User这个Pojo类注册到spring容器中 -->
     <bean id="userPojo" class="com.example.pojo.User">
@@ -70,8 +78,40 @@
 <!--    <bean id="userService" class="com.example.service.impl.UserServiceImpl" p:userDao-ref="userDao"></bean>-->
 
     <!-- 构造方法实现依赖注入 -->
-    <bean id="userService" class="com.example.service.impl.UserServiceImpl">
-        <!-- 这里的name是UserServiceImpl构造函数的参数名 -->
-        <constructor-arg name="userDao" ref="userDao"></constructor-arg>
-    </bean>
+    <!-- 不配置，使用@Component注解去生成实例 -->
+<!--    <bean id="userService" class="com.example.service.impl.UserServiceImpl">-->
+<!--        &lt;!&ndash; 这里的name是UserServiceImpl构造函数的参数名 &ndash;&gt;-->
+<!--        <constructor-arg name="userDao" ref="userDao"></constructor-arg>-->
+<!--    </bean>-->
+
+    <!-- 配置组件扫描，告诉spring在哪个包下面的Bean需要扫描，从而扫到对应的注解，帮助创建对象 -->
+    <!-- 不配置，使用Spring新注解了 -->
+<!--    <context:component-scan base-package="com.example"></context:component-scan>-->
+
+    <!-- 创建c3p0 数据源对象 -->
+    <!-- 不配置，使用Spring新注解了 -->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test"></property>-->
+<!--        <property name="user" value="root"></property>-->
+<!--        <property name="password" value="root"></property>-->
+<!--    </bean>-->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        <property name="driverClass" value="${db.driver}"></property>-->
+<!--        <property name="jdbcUrl" value="${db.url}"></property>-->
+<!--        <property name="user" value="${db.username}"></property>-->
+<!--        <property name="password" value="${db.password}"></property>-->
+<!--    </bean>-->
+
+    <!-- 创建druid 数据源对象 -->
+<!--    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">-->
+<!--        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>-->
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/test"></property>-->
+<!--        <property name="username" value="root"></property>-->
+<!--        <property name="password" value="root"></property>-->
+<!--    </bean>-->
+
+    <!-- 引入其他applicationContext配置文件 -->
+    <import resource="applicationContext-user.xml" />
+    <import resource="applicationContext-product.xml" />
 </beans>

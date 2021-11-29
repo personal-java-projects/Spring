@@ -2,11 +2,16 @@ package com.example.dao.impl;
 
 import com.example.dao.UserDao;
 import com.example.pojo.User;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+// 使用@Component生产Spring容器中的实例
+//@Component("userDao")
+@Repository("userDao")
 public class UserDaoImpl implements UserDao {
 //    public UserDaoImpl() {
 //        System.out.println("UserDaoImpl 创建...");
@@ -58,6 +63,6 @@ public class UserDaoImpl implements UserDao {
         System.out.println(strList);
         System.out.println(userMap);
         System.out.println(properties);
-        System.out.println("save running");
+        System.out.println("save running...");
     }
 }
