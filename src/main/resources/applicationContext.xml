@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 无参构造方法实例化 -->
+<!--    <bean id="userDao" class="com.example.dao.impl.UserDaoImpl" scope="singleton">-->
+<!--        &lt;!&ndash; 依赖注入：通过set方法 注入基本类型String、int&ndash;&gt;-->
+<!--        <property name="username" value="历史" />-->
+<!--        <property name="age" value="10" />-->
+<!--    </bean>-->
+
+    <bean id="userDao" class="com.example.dao.impl.UserDaoImpl" scope="singleton">
+        <!-- 依赖注入：通过set方法 注入基本类型List、Map、Properties -->
+        <property name="strList">
+            <list>
+                <value>as</value>
+                <value>asfdsf</value>
+                <value>asdsad</value>
+            </list>
+        </property>
+
+        <property name="userMap">
+            <map>
+                <entry key="user1" value-ref="userPojo"></entry>
+                <entry key="user2" value-ref="userPojo1"></entry>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="p1">3132132</prop>
+                <prop key="p2">发空间的</prop>
+                <prop key="p2">大苏打</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 将User这个Pojo类注册到spring容器中 -->
+    <bean id="userPojo" class="com.example.pojo.User">
+        <!-- 依赖注入 set方法 -->
+        <property name="name" value="tom"></property>
+        <property name="addr" value="发射机的"></property>
+    </bean>
+
+    <bean id="userPojo1" class="com.example.pojo.User">
+        <!-- 依赖注入 set方法 -->
+        <property name="name" value="tom1"></property>
+        <property name="addr" value="发射范德萨机的"></property>
+    </bean>
+
+    <!-- 工厂静态方法实例化 -->
+<!--    <bean id="userDao" class="com.example.factory.StaticFactory" factory-method="getUserDao"></bean>-->
+
+    <!-- 工厂实例方法实例化 需要先实例化工厂再实例化Bean-->
+<!--    <bean id="factory" class="com.example.factory.DynamicFactory"></bean>-->
+<!--    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"></bean>-->
+
+    <!-- 将UserService注册进spring容器，通过spring容器创建service对象 -->
+<!--    <bean id="userService" class="com.example.service.impl.UserServiceImpl">-->
+<!--        &lt;!&ndash;-->
+<!--    set方法实现依赖注入-->
+<!--            依赖注入。这里的name是UserServiceImpl中set方法截去set后剩下部分首字母改成小写的变量名,-->
+<!--            使用ref绑定对应的bean。这里ref指的是容器中对应bean的id-->
+<!--        &ndash;&gt;-->
+<!--        <property name="userDao" ref="userDao"></property>-->
+<!--    </bean>-->
+
+    <!-- p命名空间方式注入依赖，set方法实现依赖注入 -->
+<!--    <bean id="userService" class="com.example.service.impl.UserServiceImpl" p:userDao-ref="userDao"></bean>-->
+
+    <!-- 构造方法实现依赖注入 -->
+    <bean id="userService" class="com.example.service.impl.UserServiceImpl">
+        <!-- 这里的name是UserServiceImpl构造函数的参数名 -->
+        <constructor-arg name="userDao" ref="userDao"></constructor-arg>
+    </bean>
+</beans>
