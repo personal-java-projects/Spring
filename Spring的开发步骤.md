@@ -352,7 +352,7 @@ Spring的原始注解主要是替代<Bean>的配置。
 * 组件扫描的配置：<context:component-scan>
 * 引入其他文件：<import>
 
-![image-20211129175613950](C:\Users\2948\AppData\Roaming\Typora\typora-user-images\image-20211129175613950.png)
+![img_1.png](img_1.png)
 
 ## Spring集成Junit
 
