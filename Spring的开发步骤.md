@@ -366,3 +366,16 @@ IAccountService as = app.getBean("accountService", IAccountService.class);
 ```
 
 这两行代码的作用是获取容器，如果不写，会直接报空指针异常。所以又不能轻易删掉。
+
+#### 2、上述问题的解决思路
+
+* 让SpringJunit负责创建Spring容器，但是需要将配置文件的名称告诉它。
+* 将需要进行测试的Bean直接在测试类中进行注入。
+
+#### 3、Spring集成Junit的步骤
+
+1. 导入spring集成Junit的依赖
+2. 使用@Runwith注解替换原来的运行器
+3. 使用@ContextConfiguration指定配置文件或配置类
+4. 使用@Autowired注入需要测试的对象
+5. 创建测试方法进行测试

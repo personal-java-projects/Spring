@@ -16,6 +16,7 @@ public class UserController {
 //        UserService userService = (UserService) app.getBean("userService");
 //        userService.save();
 
+        // 通过读取SpringConfiguration（AnnotationConfigApplicationContext）核心配置类创建Spring容器
         ApplicationContext app = new AnnotationConfigApplicationContext(SpringConfiguration.class);
 
         // 通过字节码形式获取对应的Bean, 不需要进行类型强转换
