@@ -1,2 +1,2 @@
-# SSM-study
-个人学习项目
+# Spring
+个人学习Spring的demo项目
